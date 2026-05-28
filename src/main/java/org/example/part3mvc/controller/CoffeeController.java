@@ -31,9 +31,11 @@ public class CoffeeController {
     }
 
     @GetMapping("/search")
-    public List<CaffeeResponse> getCoffeeByName(@RequestParam String name){
+    public List<CaffeeResponse> getCoffeeByNameAndPrice(@RequestParam(
+            required = false, defaultValue = "") String name,
+            @RequestParam(required = false, defaultValue = "0") Double price){
         log.info("Coffee name: {}", name);
-        return coffeeService.getCoffeeByName(name);
+        return coffeeService.getCoffeeByName(name, price);
 
     }
 }

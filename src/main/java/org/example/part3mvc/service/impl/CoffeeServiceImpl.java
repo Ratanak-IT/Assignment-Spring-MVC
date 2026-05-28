@@ -36,9 +36,12 @@ public class CoffeeServiceImpl implements CoffeeService {
     }
 
     @Override
-    public List<CaffeeResponse> getCoffeeByName(String name) {
+    public List<CaffeeResponse> getCoffeeByName(String name, Double price) {
         return coffeeRepository.beanCoffee().stream()
-                .filter(c -> c.getName().equalsIgnoreCase(name.trim()))
+                .filter(c ->
+                        (name.isBlank() || c.getName().equalsIgnoreCase(name.trim())) &&
+                                (price == 0 || Double.compare(c.getPrice(), price) == 0)
+                )
                 .map(coffeeMapper::toCoffeeResponse)
                 .toList();
     }
