@@ -31,8 +31,9 @@ public class CoffeeController {
     }
 
     @GetMapping("/search")
-    public CaffeeResponse getCoffeeByName(@RequestParam String name){
+    public List<CaffeeResponse> getCoffeeByName(@RequestParam String name){
         log.info("Coffee name: {}", name);
         return coffeeService.getCoffeeByName(name);
+
     }
 }

@@ -36,11 +36,10 @@ public class CoffeeServiceImpl implements CoffeeService {
     }
 
     @Override
-    public CaffeeResponse getCoffeeByName(String name) {
+    public List<CaffeeResponse> getCoffeeByName(String name) {
         return coffeeRepository.beanCoffee().stream()
                 .filter(c -> c.getName().equalsIgnoreCase(name.trim()))
-                .findFirst()
                 .map(coffeeMapper::toCoffeeResponse)
-                .orElseThrow(() -> new RuntimeException("Coffee not found: " + name));
+                .toList();
     }
 }
