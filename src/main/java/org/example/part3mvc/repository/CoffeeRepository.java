@@ -1,7 +1,6 @@
 package org.example.part3mvc.repository;
 
 import org.example.part3mvc.domain.Coffee;
-import org.example.part3mvc.dto.response.CaffeeReaponse;
 import org.springframework.stereotype.Repository;
 
 import java.util.Arrays;
@@ -11,9 +10,9 @@ import java.util.List;
 public class CoffeeRepository {
 
     public List<Coffee> beanCoffee(){
-        Coffee coffee1 = new Coffee("C1", "Cappuccino", "Kafe drinking");
-        Coffee coffee2 = new Coffee("C2", "Americano", "Kafe drinking");
-        Coffee coffee3 = new Coffee("C3", "Beka", "Kafe drinking");
+        Coffee coffee1 = new Coffee("c1", "Cappuccino", "Kafe drinking", 1.5);
+        Coffee coffee2 = new Coffee("c2", "Americano", "Kafe drinking", 2.5);
+        Coffee coffee3 = new Coffee("c3", "Beka", "Kafe drinking", 2.5);
         return Arrays.asList(coffee1, coffee2, coffee3);
     }
 }

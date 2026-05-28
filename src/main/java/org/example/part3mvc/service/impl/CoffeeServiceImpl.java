@@ -1,7 +1,7 @@
 package org.example.part3mvc.service.impl;
 
 import org.example.part3mvc.domain.Coffee;
-import org.example.part3mvc.dto.response.CaffeeReaponse;
+import org.example.part3mvc.dto.response.CaffeeResponse;
 import org.example.part3mvc.mapping.CoffeeMapper;
 import org.example.part3mvc.repository.CoffeeRepository;
 import org.example.part3mvc.service.CoffeeService;
@@ -19,10 +19,28 @@ public class CoffeeServiceImpl implements CoffeeService {
         this.coffeeRepository = coffeeRepository;
         this.coffeeMapper = coffeeMapper;
     }
+
     @Override
-    public List<CaffeeReaponse> getAllCoffee() {
-        List<Coffee> coffeeList = coffeeRepository.beanCoffee();
+    public List<CaffeeResponse> getAllCoffee() {
 //        return coffeeList.stream().filter(coffee -> coffee.getCode().equals("C2")).toList();
-        return coffeeMapper.toCoffeeResponse(coffeeList);
+        return coffeeMapper.toCoffeeResponse(coffeeRepository.beanCoffee());
+    }
+
+    @Override
+    public CaffeeResponse getCoffeeById(String code) {
+        return coffeeRepository.beanCoffee().stream()
+                .filter(c -> c.getCode().equalsIgnoreCase(code.trim()))
+                .findFirst()
+                .map(coffeeMapper::toCoffeeResponse)
+                .orElseThrow(() -> new RuntimeException("Coffee not found: " + code));
+    }
+
+    @Override
+    public CaffeeResponse getCoffeeByName(String name) {
+        return coffeeRepository.beanCoffee().stream()
+                .filter(c -> c.getName().equalsIgnoreCase(name.trim()))
+                .findFirst()
+                .map(coffeeMapper::toCoffeeResponse)
+                .orElseThrow(() -> new RuntimeException("Coffee not found: " + name));
     }
 }

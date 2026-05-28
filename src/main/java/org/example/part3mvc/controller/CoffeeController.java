@@ -1,17 +1,16 @@
 package org.example.part3mvc.controller;
 
-import org.example.part3mvc.dto.response.CaffeeReaponse;
-import org.example.part3mvc.mapping.CoffeeMapper;
+import lombok.extern.slf4j.Slf4j;
+import org.example.part3mvc.dto.response.CaffeeResponse;
 import org.example.part3mvc.service.CoffeeService;
 import org.example.part3mvc.service.impl.CoffeeServiceImpl;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/coffees")
+@Slf4j
 public class CoffeeController {
 
     private final CoffeeService coffeeService;
@@ -21,7 +20,19 @@ public class CoffeeController {
     }
 
     @GetMapping
-    public List<CaffeeReaponse> getAllCoffee(){
+    public List<CaffeeResponse> getAllCoffee(){
         return coffeeService.getAllCoffee();
+    }
+
+    @GetMapping("/{code}")
+    public CaffeeResponse getCoffeeById(@PathVariable String code){
+        log.info("Coffee id: {}", code);
+        return coffeeService.getCoffeeById(code);
+    }
+
+    @GetMapping("/search")
+    public CaffeeResponse getCoffeeByName(@RequestParam String name){
+        log.info("Coffee name: {}", name);
+        return coffeeService.getCoffeeByName(name);
     }
 }

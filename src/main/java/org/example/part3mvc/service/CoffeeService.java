@@ -1,10 +1,11 @@
 package org.example.part3mvc.service;
 
-import org.example.part3mvc.domain.Coffee;
-import org.example.part3mvc.dto.response.CaffeeReaponse;
+import org.example.part3mvc.dto.response.CaffeeResponse;
 
 import java.util.List;
 
 public interface CoffeeService {
-    List<CaffeeReaponse> getAllCoffee();
+    List<CaffeeResponse> getAllCoffee();
+    CaffeeResponse getCoffeeById(String code);
+    CaffeeResponse getCoffeeByName(String name);
 }
